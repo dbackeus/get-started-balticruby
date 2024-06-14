@@ -8,6 +8,11 @@ deployments:
       - name: WEB_CONCURRENCY
         value: "2"
     readinessProbePath: /up # when this path returns 200 the pod will be considered ready
+  sidekiq:
+    replicas: 1
+    memory: 512Mi
+    cpu: 250m
+    env: [] # Put ENV which should only apply to the sidekiq deployment here
 resources:
   postgres:
     replicas: 2
