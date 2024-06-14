@@ -14,5 +14,7 @@ ingress:
   # Applications:
   - hostname: rails-example.br.mynewsdesk.dev
     service: http://rails-example-web
+  - hostname: rails-example-staging.br.mynewsdesk.dev
+    service: http://rails-example-staging-web
   # This rule matches any traffic which didn't match a previous rule and returns 404:
   - service: http_status:404
