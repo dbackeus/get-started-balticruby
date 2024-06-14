@@ -30,8 +30,15 @@ resources:
       max_wal_size: 4GB
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: top
+  redis:
+    sentinels: 3
+    replicas: 2
+    memory: 100Mi # must use Gi or Mi format
+    cpu: 250m
+    disk: 500Mi
 envFrom:
   - secretRef:
       name: rails-example
 env:
   - { name: DATABASE_URL, valueFrom: { secretKeyRef: { name: rails-example-app, key: uri } } }
+  - { name: REDIS_URL, value: "redis://rails-example-redis-master.default.svc:6379" }
