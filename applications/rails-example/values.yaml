@@ -1,4 +1,14 @@
-deployments: {}
-resources: {}
-envFrom: []
-env: []
+image: docker.io/reclaimthestack/rails-example:latest
+deployments:
+  web:
+    replicas: 2
+    memory: 512Mi
+    cpu: 250m
+    env:
+      - name: WEB_CONCURRENCY
+        value: "2"
+    readinessProbePath: /up # when this path returns 200 the pod will be considered ready
+envFrom:
+  - secretRef:
+      name: rails-example
+env: [] # Put ENV which applies to all deployments here
