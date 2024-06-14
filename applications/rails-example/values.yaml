@@ -41,9 +41,16 @@ resources:
     memory: 100Mi # must use Gi or Mi format
     cpu: 250m
     disk: 500Mi
+  elasticsearch:
+    replicas: 2 # Note: 2 replicas will also add a small third tiebreaker node
+    memory: 1Gi # Provide at least 1Gi of RAM to avoid OOM kills
+    cpu: 1
+    disk: 10Gi
 envFrom:
   - secretRef:
       name: rails-example
 env:
   - { name: DATABASE_URL, valueFrom: { secretKeyRef: { name: rails-example-app, key: uri } } }
   - { name: REDIS_URL, value: "redis://rails-example-redis-master.default.svc:6379" }
+  - { name: ELASTICSEARCH_PASSWORD, valueFrom: { secretKeyRef: { name: rails-example-es-elastic-user, key: elastic } } }
+  - { name: ELASTICSEARCH_URL, value: "http://elastic:$(ELASTICSEARCH_PASSWORD)@rails-example-es-http:9200" }
