@@ -53,4 +53,4 @@ env:
   - { name: DATABASE_URL, valueFrom: { secretKeyRef: { name: rails-example-staging-app, key: uri } } }
   - { name: REDIS_URL, value: "redis://rails-example-staging-redis-master.default.svc:6379" }
   - { name: ELASTICSEARCH_PASSWORD, valueFrom: { secretKeyRef: { name: rails-example-staging-es-elastic-user, key: elastic } } }
-  - { name: ELASTICSEARCH_URL, value: "http://elastic:$(ELASTICSEARCH_PASSWORD)@rails-example-es-http:9200" }
+  - { name: ELASTICSEARCH_URL, value: "http://elastic:$(ELASTICSEARCH_PASSWORD)@rails-example-staging-es-http:9200" }
